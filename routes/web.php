@@ -1,7 +1,8 @@
 <?php
 
+use Illuminate\Log\Logger;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +17,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
+});
+
+Route::get('/adminpanel', function () {
+    if(Auth::check()){
+        Logger(Auth::user()->name);
+        return view('adminpage');
+    }
+    else{
+        return "Access denied";
+    }
+    
 });
 
 Route::middleware([
